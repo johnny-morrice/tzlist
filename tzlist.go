@@ -17,8 +17,10 @@ type Record struct {
 
 var cachedRecords []Record
 var cachedZones []string
+var cachedZoneSet map[string]struct{}
 
 func parseZone1970() {
+	cachedZoneSet = map[string]struct{}{}
 	zoneReader := strings.NewReader(zone1970)
 	csvReader := csv.NewReader(zoneReader)
 	csvReader.Comma = '\t'
@@ -41,7 +43,16 @@ func parseZone1970() {
 		}
 		cachedRecords = append(cachedRecords, record)
 		cachedZones = append(cachedZones, record.TZ)
+		cachedZoneSet[record.TZ] = struct{}{}
 	}
+}
+
+func IsValidTZ(tz string) bool {
+	if cachedZoneSet == nil {
+		parseZone1970()
+	}
+	_, exists := cachedZoneSet[tz]
+	return exists
 }
 
 func GetRecords() []Record {

@@ -53,6 +53,17 @@ func TestGetRecords(t *testing.T) {
 	}
 }
 
+func TestIsValidTz(t *testing.T) {
+	validTz := "America/Rio_Branco"
+	invalidTz := "foo"
+	if !IsValidTZ(validTz) {
+		t.Errorf("expected %v to be valid tz", validTz)
+	}
+	if IsValidTZ(invalidTz) {
+		t.Errorf("expectev %v to be invalid tz", invalidTz)
+	}
+}
+
 func assertEqual(t *testing.T, expected interface{}, actual interface{}) {
 	t.Helper()
 	diff := cmp.Diff(expected, actual)
