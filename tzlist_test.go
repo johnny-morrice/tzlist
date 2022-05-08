@@ -60,7 +60,7 @@ func TestIsValidTz(t *testing.T) {
 		t.Errorf("expected %v to be valid tz", validTz)
 	}
 	if IsValidTZ(invalidTz) {
-		t.Errorf("expectev %v to be invalid tz", invalidTz)
+		t.Errorf("expected %v to be invalid tz", invalidTz)
 	}
 }
 
